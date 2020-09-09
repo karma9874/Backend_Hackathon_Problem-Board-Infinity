@@ -53,8 +53,14 @@ app.get('/list', function  (req, res){
 				scam['task_createdAt'] =  new Date(Date.parse(new Date(data.task_createdAt)) + (3600000*5.5)).toISOString().replace(/T/, ' ').replace(/\..+/, '')
 				dataMap[data._id] = scam
 			});
+
+			if(!Object.keys(dataMap).length){
+				res.header("Content-Type",'application/json');
+				res.send(JSON.stringify(JSON.parse('{"message":"no data available, add data first"}'),null,4))
+			}else{
 			res.header("Content-Type",'application/json');
 			res.send(JSON.stringify(dataMap,null,4))
+			}
 			console.log(dataMap)
 		 }
 	});
